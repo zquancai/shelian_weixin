@@ -1,0 +1,272 @@
+<!DOCTYPEHTMLPUBLIC"-//W3C//DTDHTML4.01//EN"   "http://www.w3.org/TR/html4/strict.dtd" or,forXHTML:>  
+<!DOCTYPEhtmlPUBLIC"-//W3C//DTDXHTML1.0Strict//EN"   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>社团、会员权益意见问题收集系统·在线提交端</title>
+<!-- Bootstrap -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+	<script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js"></script>
+	<script src="http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js"></script>
+<![endif]-->
+<script type="text/javascript" src="../wxjs/CheckFilled.js"></script>
+<script type="text/javascript" src="../wxjs/check.js"></script>
+</head>
+<body onLoad="OtherQuestion0(); ChangeKind();">
+		<div id="content">
+				<div id="FormTitle"><h2>社团、会员意见问题收集系统·在线提交端</h2></div>
+				<form  role="form" name="myform" class="table_form" id="myform"
+					action="http://saunion.scnu.edu.cn/OpinionCollectSystem/php/FormHandler.php" method="post" onsubmit="return Check()">
+					<table  class="table table-striped" border="0" id="OpintionForm">
+						<tr class="OpintionFormTR">
+							<td  height="31" rowspan="2" class="OpintionFormTD1"><div align="left"><span class="important">*</span>姓名:</div></td>
+							<td  class="OpintionFormTD2"><p align="left"><span>
+						    <input type="text"
+									class="necessary form-control" value="" size="20" id="StudentName"
+									onblur="check_form('StudentName', /^[\u4e00-\u9fa5]*[\u4e00-\u9fa5]$/)" name="StudentName">
+							</span></p></td>
+						</tr>
+						<tr class="OpintionFormTR">
+						  <td class="OpintionFormTD2"><p><span><img
+									 id="ico_StudentName" src="../wxpic/abort.png" /></span> <span>请输入真实姓名</span></p>
+					      <p>&nbsp;</p></td>
+					  </tr>
+						<tr class="OpintionFormTR">
+							<td rowspan="2" class="OpintionFormTD1"><div align="justify"><span class="important">&nbsp;</span>微博：</div>
+						    <div align="left"></div></td>
+							<td class="OpintionFormTD2"><p><span>
+						    <input type="text"
+									class="necessary form-control" value="" size="20" id="Weibo" name="Weibo">
+							</span></p></td>
+						</tr>
+						<tr class="OpintionFormTR">
+						  <td class="OpintionFormTD2"><p><span><img src="../wxpic/abort.png" /></span> <span>请输入新浪微博</span></p>
+					      <p>&nbsp;</p></td>
+					  </tr>
+
+						<tr class="OpintionFormTR">
+							<td rowspan="2" class="OpintionFormTD1"><span class="important">*</span>电话：</td>
+							<td class="OpintionFormTD2"><p><span>
+						    <input type="text"
+									class="necessary form-control" value="" size="20" id="PhoneNumber"
+									onblur="check_form('PhoneNumber', /^[0-9][^<>]*[0-9]?$/)" name="PhoneNumber"/>
+							</span></p></td>
+						</tr>
+						<tr class="OpintionFormTR">
+						  <td class="OpintionFormTD2"><p><span><img
+									id="ico_PhoneNumber" src="../wxpic/abort.png" /></span> <span>请输入联系电话</span></p>
+					      <p>&nbsp;</p></td>
+					  </tr>
+
+						<tr class="OpintionFormTR">
+							<td rowspan="2" class="OpintionFormTD1"><span class="important">*</span>邮箱：</td>
+							<td class="OpintionFormTD2"><p><span>
+						    <input type="text"
+									onblur="check_form('Email', /^[\w]+@[\w]+?\.[\w]{2,6}/)" class="necessary form-control" value="" size="20" id="Email" name="Email">
+							</span></p></td>
+						</tr>
+						<tr class="OpintionFormTR">
+						  <td class="OpintionFormTD2"><p><span><img  id="ico_Email" src="../wxpic/abort.png" /></span> <span>请输入邮箱</span></p>
+					      <p>&nbsp;</p></td>
+					  </tr>
+
+						<tr class="OpintionFormTR">
+							<td rowspan="2" class="OpintionFormTD1"><span class="important">*</span>社团：</td>
+							<td class="OpintionFormTD2"><p><span>
+						    <input type="text"
+									onblur="check_form('Organization',/^[\u4e00-\u9fa5_A-Za-z_0-9][^<>]*[\u4e00-\u9fa5_A-Za-z_0-9]?$/)" class="necessary form-control" value="" size="20" id="Organization" name="Organization"/>
+							</span></p></td>
+						</tr>
+						<tr class="OpintionFormTR">
+						  <td class="OpintionFormTD2"><span><img id="ico_Organization" src="../wxpic/abort.png" /></span> <span>请输入社团名</span></td>
+					  </tr>
+                        
+                        <tr class="OpintionFormTR">
+							<td class="OpintionFormTD1"><span class="important">*</span>你是：</td>
+							<td class="OpintionFormTD2">
+                            	<input type="radio" id="Kind1" name="Kind" value="会员" checked="checked" onclick="ChangeKind()"/> 
+                                <label class="switch_radios" for="jointb">会员</label>
+                                <input type="radio" id="Kind2" name="Kind" value="社团" onclick="ChangeKind()" /> 
+                                <label class="switch_radios" for="jointb">社团负责人</label>
+                           </td>
+						</tr> 
+						<script>
+							var flag = true;
+                        	function ChangeKind() {	
+                            	if( document.getElementById("Kind1").checked ) {
+									document.getElementById("FormKind1").style.display = 'none';
+									document.getElementById("FormKind0").style.display = 'table-row';
+									document.getElementById("other1").innerHTML = "其他";
+									document.getElementById("caiwu").checked = true;
+									flag = true;
+                                } else {
+									document.getElementById("FormKind1").style.display = 'table-row';
+									document.getElementById("FormKind0").style.display = 'none';
+									document.getElementById("other2").innerHTML = "其他";
+									document.getElementById("zhidu").checked = true;
+									flag = true;
+								}
+                            }
+							
+							function OtherQuestion0() {	
+                                var object1 = document.getElementById("other1");	
+                                if( document.getElementById("Complain4").checked && flag ) {
+                                	object1.innerHTML += "&nbsp;&nbsp;&nbsp;<input type='text' class='input-text' value='' size='20' id='OtherInput' name='Complain' />"
+									document.getElementById("Complain4").checked == false;
+									flag = false;
+                                } else {
+									object1.innerHTML = "其他";
+									flag = true;
+								}
+							}
+							
+							function OtherQuestion1() {
+								var object2 = document.getElementById("other2");
+								if( document.getElementById("Complain8").checked && flag ) {
+                                	object2.innerHTML += "&nbsp;&nbsp;&nbsp;<input type='text' class='input-text' value='' size='20' id='OtherInput' name='Complain' />"
+									document.getElementById("Complain8").checked == false;
+									flag = false;
+                                } else {
+									object2.innerHTML = "其他";
+									flag = true;
+								}
+                            }
+                       	</script>
+
+						<tr class="OpintionFormTR" id="FormKind0">
+							<td class="OpintionFormTD1"><span class="important">*</span>问题类别：</td>
+							<td class="OpintionFormTD2"><input type="radio"
+								id="caiwu" name="Complain" value="财务管理"
+								onclick="OtherQuestion0()" /> 
+							  <label class="switch_radios"
+								for="jointb">财务管理<br />
+						      </label> 
+							  <input type="radio" id="Complain"
+								name="Complain" value="活动开展" onclick="OtherQuestion0()" /> 
+							  <label
+								class="switch_radios" for="jointb">活动开展</label>
+							  <p>
+							    <input
+								type="radio" id="Complain" name="Complain" value="民主机制"
+								onclick="OtherQuestion0()" /> 
+							    <label class="switch_radios"
+								for="jointb">民主机制</label> 
+						      </p>
+							  <p>
+							    <input type="radio" id="Complain4"
+								name="Complain" value="其他" onclick="OtherQuestion0()" /> 
+							    <label
+								class="switch_radios" for="jointb" id="other1">其他</label> 
+							    <script>
+                                
+                                </script>
+						      </p>
+                            </td>
+						</tr>
+                        
+                        <tr class="OpintionFormTR" id="FormKind1">
+                        	<td class="OpintionFormTD1"><span class="important">*</span>问题类别：</td>
+							<td class="OpintionFormTD2"><p>
+							  <input type="radio"
+								id="zhidu" name="Complain" value="社团工作制度"
+								onclick="OtherQuestion1()" /> 
+							  <label class="switch_radios"
+								for="jointb">社团工作制度</label> 
+							  </p>
+							  <p>
+							    <input type="radio" id="Complain"
+								name="Complain" value="社团日常工作相关事项" onclick="OtherQuestion1()" /> 
+							    <label
+								class="switch_radios" for="jointb">社团日常工作相关事项</label> 
+						      </p>
+							  <p>
+							    <input
+								type="radio" id="Complain" name="Complain" value="社联工作效率"
+								onclick="OtherQuestion1()" /> 
+							    <label class="switch_radios"
+								for="jointb">社联工作效率</label> 
+						      </p>
+							  <p>
+							    <input type="radio" id="Complain8"
+								name="Complain" value="其他" onclick="OtherQuestion1()" /> 
+							    <label
+								class="switch_radios" for="jointb" id="other2">其他</label>
+						      </p>
+                            </td>
+						</tr>
+
+						<tr class="OpintionFormTR">
+							<td class="OpintionFormTD1"><span class="important">*</span>紧急程度：</td>
+							<td class="OpintionFormTD2"><input type="radio"
+								id="DegreeOfEmergency" name="DegreeOfEmergency" value="0"
+								checked="checked" class="necessary" /> <label
+								class="switch_radios" for="jointb">一般</label> <input
+								type="radio" id="DegreeOfEmergency" name="DegreeOfEmergency"
+								value="1" /> <label class="switch_radios" for="jointb">紧急</label>
+							</td>
+						</tr>
+
+						<tr class="OpintionFormTR">
+							<td class="OpintionFormTD1"><p><span class="important">*;</span>事件发生过程：</p></td>
+							<td class="OpintionFormTD2"><textarea id="editor1"
+									name="Process" wrap="virtual" class="necessary form-control"></textarea></td>
+						</tr>
+
+						<tr class="OpintionFormTR">
+							<td class="OpintionFormTD1"><p>相关依据：</p>
+						    <p>（选填）</p></td>
+							<td class="OpintionFormTD2"><textarea id="editor2"
+									class="form-control" name="Evidence" wrap="virtual"></textarea></td>
+						</tr>
+
+						<tr>
+							<td class="OpintionFormTD1"><p>建议解决措施：</p>
+						    <p>（选填）</p></td>
+							<td class="OpintionFormTD2"><textarea id="editor3"
+									class="form-control" name="Suggestion" wrap="virtual"></textarea></td>
+						</tr>
+
+						<tr class="OpintionFormTR">
+							<td class="OpintionFormTD1"><span class="important">*</span>期望解决效果：</td>
+							<td class="OpintionFormTD2"><textarea id="editor4"
+									class="form-control" name="DesiredResult" wrap="virtual"></textarea></td>
+						</tr>
+
+						<!--<tr class="OpintionFormTR">
+                        <td class="OpintionFormTD1"><span class="important">*</span>验证码：</td>
+                        <td class="OpintionFormTD2"><input name="verify" type="text"
+                            style="height: 23px; width: 60px;" class="necessary" />&nbsp; <img id="verifyImg"
+                            SRC="http://www.stuu.cc/rights/index.php/Index/verify/" BORDER="0"
+                            ALT="">&nbsp; <a href="javascript:fleshVerify()">刷新验证码</a></td>
+                    </tr>-->
+						<script type="text/javascript">tinyMCE.triggerSave(true);</script> 
+						<tr class="OpintionFormTR">
+							<td class="OpintionFormTD1">&nbsp;</td>
+							<td class="OpintionFormTD2"><input type="submit"
+								class="button btn btn-primary" id="dosubmit" value="提交" /></td>
+						</tr>
+
+						<tr class="OpintionFormTR">
+							<td class="OpintionFormTD1">&nbsp;</td>
+							<td class="OpintionFormTD2">&nbsp;</td>
+						</tr>
+					</table>
+					<!-- end #mainContent -->
+			  </form>
+		</div>
+		<div class="bs-links text-center">
+			<ul class="quick-links list-unstyled">
+				<li><a href="http://weibo.com/huashitaneipc" target="_blank">Powered By SCNU塔内PC协会</a></li>
+			</ul>
+		</div>
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+</body>
+</html>

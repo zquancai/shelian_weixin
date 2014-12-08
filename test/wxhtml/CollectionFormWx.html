@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<!-- saved from url=(0047)file:///C:/Users/Administrator/Desktop/chat.htm -->
+<html "=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>
+	<meta charset="utf-8">
+	<title>会员意见收集端</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+<link rel="stylesheet" type="text/css" href="../../css/shetuan.css">
+<script src="../wxjs/huiyuanForm.js"></script>
+</head>
+<body onLoad="OtherQuestion0(); ChangeKind();">
+<header>
+	<nav>
+		<b>>>会员意见收集</b>
+	</nav>
+</header>
+<br>
+<div class="pre_navigate pre_div">
+	<div class="navigate">
+		<div class="content">
+			<label>带<span class="important">*</span>号的为必填哦！<br></label>
+			<form name="form"action="http://saunion.scnu.edu.cn/OpinionCollectSystem/php/FormHandler.php" method="post">
+				<label ><span class="important">*</span>姓名</label>
+					<input type="text" placeholder="请输入您的姓名" class="w-input" value="" size="20" name="StudentName" />
+				<label >微博</label>
+					<input type="text" placeholder="请输入您的微博" class="w-input" value="" size="20"  name="Weibo">
+				
+				<label><span class="important">*</span>联系电话</label>
+					<input type="text" placeholder="输入您的电话号码" class="w-input" value="" size="20" name="PhoneNumber" />
+				
+				<label><span class="important">*</span>邮箱</label>
+					<input type="text" placeholder="输入您的邮箱"  class="w-input" value="" size="20" name="Email" />
+				
+				<label><span class="important">*</span>所在社团</label>
+					<input type="text" placeholder="输入您所在的社团"  class="w-input" value="" size="20"  name="Organization"/>
+				
+				<label><span class="important">*</span>您的身份是</label>
+					<label for="Kind1">
+						<input type="radio" id="Kind1" name="Kind" value="会员" checked="checked" onclick="ChangeKind()"/> 
+                        会员
+					</label>
+					<label for="Kind2">
+						<input type="radio" id="Kind2" name="Kind" value="社团" onclick="ChangeKind()" />
+                        社团负责人
+					</label>
+				<label id='FormKind0'>
+					<label><span class="important">*</span>问题类别</label>
+						<label for="caiwu">
+							<input type="radio" id="caiwu" name="Complain" value="财务管理" onclick="OtherQuestion0()" />
+							财务管理
+						</label>
+						<label for="huodong">
+							<input type="radio" id="huodong" name="Complain" value="活动开展" onclick="OtherQuestion0()" /> 
+							活动开展
+						</label>
+						<label for="minzhu">
+							<input type="radio" id="minzhu" name="Complain" value="民主机制" onclick="OtherQuestion0()" /> 
+							民主机制
+						</label>
+						<label for="Complain4">
+							<input type="radio" id="Complain4" name="Complain" value="其他" onclick="OtherQuestion0()" /> 
+							<span id="other1">
+								其他
+							</span>
+						</label>
+				</label>
+				<label id='FormKind1'>
+					<label><span class="important">*</span>问题类别</label>
+					<label for="zhidu"> 
+						<input type="radio" id="zhidu" name="Complain" value="社团工作制度" onclick="OtherQuestion1()" /> 
+						社团工作制度
+					</label>
+					<label for="shixiang"> 
+						<input type="radio" id="shixiang" name="Complain" value="社团日常工作相关事项" onclick="OtherQuestion1()" /> 
+						社团日常工作相关事项
+					</label>
+					<label for="xiaolue"> 
+						<input type="radio" id="xiaolue" name="Complain" value="社联工作效率" onclick="OtherQuestion1()" /> 
+						社联工作效率
+					</label>
+					<label for="Complain8"> 
+						<input type="radio" id="Complain8" name="Complain" value="其他" onclick="OtherQuestion1()" /> 
+							<span  id="other2">
+								其他
+							</span>
+					</label>
+				</label>
+				<label>
+					<label><span class="important">*</span>紧急程度</label>
+					<label for="yiban">
+						<input type="radio" id="yiban" name="DegreeOfEmergency" value="0" checked="checked" class="necessary" />
+						一般
+					</label>
+					<label for="jinji">
+						<input type="radio" id="jinji" name="DegreeOfEmergency" value="1" />
+						紧急
+					</label>
+						
+						
+					<label><span class="important">*</span>简述事情的经过</label>
+						<textarea id="editor1" name="Process" placeholder="简要叙述事情的经过" wrap="virtual" class="w-input"></textarea>
+		
+					<label>相关依据（选填）</label>
+						<textarea id="editor2" class="w-input" placeholder="可以不填" name="Evidence" wrap="virtual"></textarea>
+							
+					<label><span class="important">*</span>期望解决的方式</label>
+					<textarea id="editor3" class="w-input" placeholder="可以不填" name="Suggestion" wrap="virtual"></textarea>
+		
+					<input class="w-button" type="submit" value="提交" onClick="javascript:return CheckForm(form)">
+			</form>
+		</div>
+	</div>
+</div>
+<div class="footer">
+		<a href="http://weibo.com/scnushelian">
+		©华南师范大学石牌校区社团联合会</a><br>
+		<a href="http://weibo.com/huashitaneipc" target="_blank">
+		Powered By SCNU塔内PC协会</a>
+</div>
+</body>
+</html>

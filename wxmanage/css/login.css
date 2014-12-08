@@ -1,0 +1,19 @@
+body{
+	width:100%;
+	height:880px;
+	background:url(../images/scnu.jpg) center no-repeat;
+	-moz-background-size:100% 100%;
+	background-size:100% 100%;
+}
+.login-row{padding-top:250px;}
+.login-body{
+background:url(../images/shelian_logo.png) center;
+background-size:100% 100%;
+background-color: #ffffff;
+  border: 1px solid black;
+  /* for IE */
+  filter:alpha(opacity=80);
+  /* CSS3 standard */
+  opacity:0.8;
+}
+#login-tip{color:red;font-size:20px;}

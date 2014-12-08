@@ -1,0 +1,93 @@
+.pre_div{
+margin-top:-20px;
+}
+ .pre_navigate{
+	padding: 5px 5px 5px 5px;
+	background:rgb(250,250,250);
+ }
+.navigate{
+	background:rgb(255,255,255);
+	box-shadow: 0 0 5px 3px rgba(100,100,100,0.3);
+	border-radius: 4px;/*圆形矩形*/
+}
+
+ .content{
+	padding: 10px 10px 10px 10px;/*文本内容的div*/
+	line-height:150%;
+ }
+ 
+hr,h3{margin-top: 5px;margin-bottom: 5px;}
+ 
+.footer{ 
+	text-align:center;
+	margin-top: -20px;
+	margin-bottom: 50px;
+	}
+ 
+ a { text-decoration:none; }/*消除下划线*/
+
+.img{width:100%;}
+ 
+body {
+	background:rgb(250,250,250);/*背景色*/
+}
+
+ /*会员意见css*/
+ .all_input{
+	    padding: 10px 20px 20px 20px;
+		width: 100%;
+ }
+ 
+.w-button{
+	background: rgb(240,120,50);
+	border-radius: 8px;
+	width: 100%;
+	font-size: 25px;
+	border: 0;
+	padding: 12px;
+}
+ 
+ .w-input,.w-select,radio{
+	border-radius: 4px;
+	font-size: 20px;
+	display: block;
+	width: 100%;
+	height: 38px;
+	padding: 8px 12px;
+	margin-bottom: 10px;
+	font-size: 20px;
+	vertical-align: middle;
+	background-color: #ffffff;
+	border: 1px solid #cccccc;
+ }
+ .w-select{
+	padding:0px 0px;
+	color: #555555;
+ }
+ *{-webkit-box-sizing: border-box;}
+textarea.w-input, textarea.w-select{height: auto;}
+/*label, .w-select*/
+label{
+	font-size: 20px;
+	font-weight:bold;
+	margin-bottom: 5px;
+	display: block;
+	}
+.important{
+	color:rgb(255,0,0);
+}
+ /*我自己的css*/
+p {
+  margin-bottom: 5px;
+}
+.button {
+  display: inline-block;
+  padding: 4px 15px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  cursor:pointer;
+}
+
+.my-modal-footer{padding-bottom:0px;}
