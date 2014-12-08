@@ -1,5 +1,5 @@
 <?php
-include('../test/wxdb.php');
+include('../weixin/wxdb.php');
 
 $table = 'shelian_user';
 header("cache-control:no-cache,must-revalidate");
@@ -9,7 +9,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
 //	$status=$_POST['status'];//身份信息
 	$username=$_POST['username'];//用户名
 	$password=$_POST['password'];//密码
-	$condition="where username='{$username}'";
+	$condition="where username='{$username}' and isdelete=0";//账号未被删除
 	$arr = WXDB::getSomething("username,password,seid",$table,$condition);
 	$arr=$arr[0];
 	$seid=$arr[2];

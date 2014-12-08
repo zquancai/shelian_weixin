@@ -1,19 +1,5 @@
-<div class=" left-fixed"><!--使左侧导航栏固定-->
-	<div class="col-xs-3 col-lg-3 my-col-3"><!--左侧导航栏-->
 		<div class="row row-padd"  id="shetuan-user"><!--社团logo-->
 		<!--社团用户信息显示处-->
-		</div>
-		<div class="row" style="padding-left:45px;"><!--添加项-->
-			<div class="col-xs-5 col-lg-5">
-				 <a class="thumbnail mythumbnail" onclick="Add('photo','')"><!--添加相片,打开模态框-->
-					<img src="images/add_photo.png" class="img-responsive">
-				</a>
-			</div>
-			<div class="col-xs-5 col-lg-5">
-				<a class="thumbnail mythumbnail" onclick="Add('action','')"><!--添加活动，打开模态框-->
-					<img src="images/add_action.png" class="img-responsive">
-				</a>
-			</div>
 		</div>
 		<div class="row" style="padding-top:10px;">
 			<div class="col-xs-2 col-lg-2"></div>
@@ -62,6 +48,7 @@ print <<<EOT
 			</div>
 		<div class="panel-body panel-body1" style="display:none;">
 			<ul class="nav nav-pills mynav">
+			  <li class=" li-text"><a id='view-shetuandelete' data-toggle="tab">已删除社团列表</a></li>
 			  <li class=" li-text"><a id='view-shetuanlist' data-toggle="tab">查看社团列表</a></li>
 			  <li class=" li-text"><a id='view-shetuaninfo' data-toggle="tab">查看社团信息</a></li>
 			  <li class=" li-text"><a id='view-business' data-toggle="tab">查看社团事务流程</a></li>
@@ -87,5 +74,3 @@ EOT;
 				</div> 
 			</div>
 		</div>
-	</div>
-</div>

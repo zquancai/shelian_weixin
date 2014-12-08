@@ -1,0 +1,54 @@
+body{
+	position:relative;
+	margin:0 auto;
+	min-width:300px;
+	max-width:500px;
+	background:rgb(10,10,10);
+}
+p{margin:0;}
+.p-wide{
+	position:relative;
+	text-align:center;
+	min-height:60%;
+	max-height:60%;
+	margin-top:6%;
+	margin-bottom:4%;
+	overflow: hidden;
+	background: url('../wximg/load.gif') center center no-repeat;
+	background-size:50px;
+}
+.p-left,.p-right{
+	height: 100%;
+	position: absolute;
+	width: 50px;
+}
+.p-left{left:0;}
+.p-right{right:0;}
+.p-wide img{
+	width: 100%;
+	margin: auto 0;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+.img-text{
+	color:white;
+	padding: 0 10px 0 10px;
+	max-height:20%;
+	min-height:20%;
+}
+.p-title{
+	position: relative;
+	margin-bottom:3%;
+}
+.p-title>span:nth-child(2){
+	position: absolute;
+	right: 0;
+	color: white;
+}
+.p-text{
+	max-height:14%;
+	overflow-y: scroll;
+}

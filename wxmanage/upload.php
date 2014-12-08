@@ -35,41 +35,19 @@
 			default:return 'images';
 		}
 	}
-	if(isset($_GET['change'])){//上传社团活动的照片
+	if(isset($_GET['change'])){//上传照片
 		$serverpath=GetServerPath($_GET['change']);//
 		$img=split(',',$_GET['img']);//input的name属性值
 		$n=count($img);
 		$arr=array();
 		for($i=0;$i<$n;$i++){
-			$arr[$i]='unchanged';//未改变图片
+			$arr[$i]='#';//未改变图片
 			if($img[$i]!='unchanged'){
 				$filename=date("Ymd").rand();//文件名，以上传时间命名+
-				$arr[$i]=UploadFile($img[$i],$serverpath,$filename);
+				$arr[$i]="../wxmanage/".UploadFile($img[$i],$serverpath,$filename);
 			}
 		}
 		echo  json_encode($arr);//返回文件的存放路径*/
-	}
-	/*
-	
-	
-	
-	
-	
-	if(isset($_GET['inputfile'])){//上传相册
-		$filepath="inexistence";//初始化变量，不存在该路径
-		$serverpath="photo_images/photo_images".$seid;//文件目录
-		$filename=date("Ymd").rand();//文件名，以上传时间命名+随机数命名
-		$filepath=UploadFile($_GET['inputfile'],$serverpath,$filename);
-		$arr=array('inputfile'=>$filepath);
-		echo  json_encode($arr);//返回文件的存放路径
-	}
-	if(isset($_GET['inputlogo'])){//修改、添加社团logo
-		$filepath="inexistence";//初始化变量，不存在该路径
-		$serverpath="acount_images";//文件目录
-		$filename=date("Ymd").rand();//文件名，以上传时间命名+随机数命名
-		$filepath=UploadFile($_GET['inputlogo'],$serverpath,$filename);
-		$arr=array('inputlogo'=>$filepath);
-		echo  json_encode($arr);//返回文件的存放路径
 	}
 	if(isset($_GET['uploadfile'])){//社团文件上传，批量上传
 		$filenamelist=split(',',$_GET['uploadfile']);//获得文件的name列表
@@ -79,13 +57,4 @@
 			UploadFile($filenamelist[$i],$serverpath,'');//轮流上传文件
 		echo json_encode("uploadsuccess");//返回成功标志
 	}
-	if(isset($_GET['materialsfile'])){//社团物资图片上传
-		$filepath="inexistence";//初始化变量，不存在该路径
-		$serverpath="materials_images";//文件目录
-		$filename=date("Ymd").rand();//文件名，以上传时间命名+随机数命名
-		$filepath=UploadFile($_GET['materialsfile'],$serverpath,$filename);
-		$arr=array('materialsfile'=>$filepath);
-		echo  json_encode($arr);//返回文件的存放路径
-	}
-//	if(isset($_GET['']))*/
 ?>

@@ -1,0 +1,103 @@
+<html>
+<head>
+	<title>华南师大社团报名</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css" href="wxcss/common.css">
+	<link rel="stylesheet" type="text/css" href="wxcss/shetuan.css">
+	<link rel="stylesheet" type="text/css" href="wxcss/register.css">
+</head>
+<body>
+<div class="s-info" id="s-info">
+	<center><label class="form-label"><span id="shetuan-name"></span>报名表</label></center><hr>
+		<form role="form" id="registerform">
+			<div class="input-group">
+				<label for="name" class="form-label"><span class="important">*</span>姓名<span id="name-tip" class="important"></span></label>
+				<input type="text" class="form-control" id="name" placeholder="请输入真实姓名">
+			</div>
+			<div class="input-group"><!--性别-->
+				<label class="form-label"><span class="important">*</span>性别</label>
+				<label class="sex-label"><input type="radio" name="sex"  value="男" checked="checked">男</label>
+				<label class="type-label"><input type="radio" name="sex" value="女">女</label>
+			</div>
+			<div class="input-group"><!--学院专业-->
+				<label for="major" class="form-label">学院（专业）</label>
+				<input type="text" class="form-control" id="major" placeholder="请输入您的学院和专业">
+			</div>
+			<div class="input-group"><!--宿舍地址-->
+				<label for="dorm_addr" class="form-label">宿舍地址</label>
+				<input type="text" class="form-control" id="dorm_addr" placeholder="请输入您的宿舍地址">
+			</div>
+			<div class="input-group"><!--联系电话-->
+				<label for="phone" class="form-label"><span class="important">*</span>联系电话<span id="phone-tip" class="important"></span></label>
+				<input type="text" class="form-control" id="phone" placeholder="请输入您的11位手机号码">
+			</div>
+			<div class="input-group"><!--QQ-->
+				<label for="qq" class="form-label">QQ</label>
+				<input type="text" class="form-control" id="qq" placeholder="请输入您的常用QQ账号">
+			</div>
+			<div class="input-group"><!--邮箱-->
+				<label for="mail" class="form-label"><span class="important">*</span>邮箱<span id="mail-tip" class="important"></span></label>
+				<input type="text" class="form-control" id="mail" placeholder="请输入您的常用邮箱账号">
+			</div>
+			<div class="input-group"><!--微博微信-->
+				<label for="sina_wechat" class="form-label">微博微信</label>
+				<input type="text" class="form-control" id="sina_wechat" placeholder="请输入您的微博或微信账号">
+			</div>			
+			<div class="input-group" class="form-label"><!--爱好特长-->
+				<label for="hobbies" class="form-label">爱好特长</label>
+				<textarea class="textarea-control" rows="3" id="hobbies" placeholder="请输入您的个人爱好"></textarea>
+			</div>
+			<div class="input-group"><!--个人曾任职务-->
+				<label for="experience" class="form-label">个人曾任职务或经历</label>
+				<textarea class="textarea-control" rows="5" id="experience" placeholder="请输入您的个人真实经历"></textarea>
+			</div>
+			<div class="input-group"><!--个人介绍-->
+				<label for="experience" class="form-label">个人介绍</label>
+				<textarea class="textarea-control"rows="5" id="experience" placeholder="请输入您的个人介绍"></textarea>
+			</div>
+			<div class="input-group" id="type-choice"><!--申请类别-->
+				<label class="form-label"><span class="important">*</span>申请类别</label>
+				<label class="type-label"><input type="radio" name="type" value="干部">干部</label>
+				<label class="type-label"><input type="radio" name="type"  value="干事" checked="checked">干事</label>
+				<label class="type-label"><input type="radio" name="type" value="会员">会员</label>
+			</div>
+			<span id="minister-staff"><!--选项为部长或者干事时，显示志愿选项-->
+				<div id="part" class="part"></div>
+				<div class="input-group"><!--第一志愿-->
+					<label class="form-label fold-label"><span class="important">*</span>第一志愿<span id="first-tip" class="important"></span><span id="fold" class="fold">部门介绍</span></label>
+					<input type="text" class="form-control" id="first_wish" placeholder="请输入您的第一志愿">
+				</div>
+				<div class="input-group"><!--第一志愿理由-->
+					<label for="first_reason" class="form-label">第一志愿理由</label>
+					<textarea class="textarea-control" rows="5" id="first_reason" placeholder="请输入您的申请理由"></textarea>
+				</div>
+				<div class="input-group"><!--第二志愿-->
+					<label for="second_wish" class="form-label">第二志愿</label>
+					<input type="text" class="form-control" id="second_wish" placeholder="请输入您的第二志愿">
+				</div>
+				<div class="input-group"><!--第二志愿理由-->
+					<label for="second_reason" class="form-label">第二志愿理由</label>
+					<textarea class="textarea-control" rows="5" id="second_reason" placeholder="请输入您的申请理由"></textarea>
+				</div>
+			</span>
+		</form>
+	<table id="preview-t" class="preview-t">
+	<tbody>
+	</tbody>
+	</table>
+	<div class="button-group">
+		<button type="button" class="btn btn-default" data-toggle="modal" id="preview-b">预览报名表</button>
+		<button type="button" id="rechange" class="btn btn-default display-none">返回修改</button>
+		<button type="button" id="send-register" class="btn btn-success">提交报名表</button>
+	</div>
+</div>
+<div class="s-bottom"></div>
+<script src="wxjs/jquery.js"></script>
+<script src="wxjs/common.js"></script>
+<script src="wxjs/allcheck.js"></script><!--表单验证函数-->
+<script src="wxjs/register.js"></script><!--表单验证-->
+</body>
+</html>
+
+

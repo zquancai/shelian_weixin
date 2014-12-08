@@ -1,5 +1,5 @@
 <div style="padding:0;">
-	<header><!--顶栏-->
+	<header class="body-min"><!--顶栏-->
 		<nav>
 		<div class="col-xs-7 col-lg-7 head-col">
 			<b><img src="images/shelian_logo0.png">华南师范大学社团联会微信公众号后台管理平台</b>

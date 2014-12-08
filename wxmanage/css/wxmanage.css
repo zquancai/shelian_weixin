@@ -1,3 +1,7 @@
+﻿#preview_modal iframe{
+	background: url('../images/load.gif') center center white no-repeat;
+	background-size: 60px;
+}
 header {
 	background:#333333;
 	height: 40px;
@@ -20,7 +24,8 @@ nav {
 .quit-login a:hover{text-decoration: none;color:gray;}
 .quit-login a{color:white;}
 .allhandle a{color:white;}
-.left-fixed{position: fixed;width:100%;}
+.left-fixed{position: fixed;}
+.rpos{position:absolute;right:0;}
 .row-round{margin:30px 0 50px 5px;}
 .my-col-3{background:#333333;height:700px;}
 .row-padd{padding:5px;}
@@ -120,11 +125,65 @@ a.mythumbnail:hover{border-color:green;}
 .tip-color{color:#FF3366;}
 .shadediv{
 	display: block; 
+	text-align: center;
 	width: 100%; 
 	height: 100%; 
 	position: absolute; 
 	left: 0px; 
 	top: 0px; 
-	z-index: 811212;
+	z-index: 8112;
+	background: rgba(100,100,100,0.8);
+}
+.shadediv div{
+	position: absolute;
+	left: 40%;
+	top: 40%;
+	font-size: 20px;
+	background: white;
+	padding: 50px;
+	font-weight: bolder;
+	border-radius: 10px;
+}
+.shadediv img{
+	width: 50px;
+	padding-right: 10px;
 }
 .my-btn{margin-right: 10px;}
+.col-rwidth,.shetuan-body{min-width:700px;}
+.col-lwidth{min-width:200px;}
+.body-min{min-width:900px;}
+.my-preview{
+	cursor:pointer;
+	position: fixed;
+	right: 0;
+	bottom: 25px;
+}
+.my-preview>img{width:30px;}
+.open-mail{
+	border: 1px solid;
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	position: absolute;
+	left: 100px;
+	height: 20px;
+	width: 80px;
+	background: white;
+	margin-top:2px;
+	cursor:pointer;
+	border-radius:4px;
+}
+.open-mail span{
+	width: 50%;
+	height: 18px;
+	color: white;
+	line-height: 18px;
+	text-align: center;
+	font-size:10px;
+}
+.isclose{
+	background: #ee5f5b;
+	float: left;
+}
+.isopen{
+	background:#62c462;
+	float:right;
+}

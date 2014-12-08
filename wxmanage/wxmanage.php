@@ -2,17 +2,13 @@
 <?php
 header("content-type:text/html; charset=utf8");
 session_start(); 
-include('../test/wxglobal.php');
-include('../test/wxdb.php');
+include('../weixin/wxglobal.php');
+include('../weixin/wxdb.php');
 $url = 'wxlogin.php';
 $table="shelian_user";
 $table1="shetuan_info";
 if(isset($_SESSION['seid']))
-{
 	$seid=$_SESSION['seid'];//一般权限
-	//if($seid==0)//设置高权限
-	//	$hight=$_SESSION['hight'];//seid=0时，为高级权限
-}
 else
 	dealcheck('没有登录，请重新登录！', $url);
 ?>
@@ -31,20 +27,24 @@ else
 	<div style="width:100%;">
 		<?php include("header.php");//顶栏?>
 		<div class="row row-round">
+			<div class="col-xs-3 col-lg-3 my-col-3 col-lwidth left-fixed"><!--使左侧导航栏固定-->
 			<?php include("left_menu.php");?>
-			<div class="col-xs-3 col-lg-3"></div><!--排版，弥补左侧导航栏空出的位置-->
-			<div class="col-xs-9 col-lg-9">
-				<div id="displayinfo">
+			</div>
+			<div class="col-xs-9 col-lg-9 rpos">
+				<div id="displayinfo" style="min-width:700px">
 					<?php include("shetuan_account.php");//社团账号信息?>
 					<?php include("shetuan_body.php");//社团信息?>
 				</div>
 			</div>
 		</div>
+		<div class="my-preview" id="preview"><img src="images/prephone.png" ></div>
 		<?php include("footer.php");//底栏，版权和技术支持信息?>
 	</div>
+	<?php include("modal-dialog.php");//弹出对话框?>
 </body>
 <head>
 	<script src="js/jquery.js"></script>
+	<link rel="stylesheet" href="kindeditor/themes/default/default.css" />
 	<script charset="utf-8" src="kindeditor/kindeditor-min.js"></script>
 	<script charset="utf-8" src="kindeditor/lang/zh_CN.js"></script>
 	<script src="js/bootstrap.js"></script>

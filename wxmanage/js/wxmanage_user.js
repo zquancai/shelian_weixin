@@ -21,6 +21,8 @@ ShetuanUser={
 	$materials_edit_modal: $('#materials_edit_modal'),
 	$market_view_modal: $('#market_view_modal'),
 	curDate : new Date,
+	seid:null,
+	open:'',//是否开启了邮箱，0为未开启，1为开启
 	Init : function(){//初始化函数
 		ShetuanUser.LoadData();
 		ShetuanUser.LeftMenu();
@@ -54,6 +56,11 @@ ShetuanUser={
 			$('body').html("");
 	},
 	BindEvent : function(){//事件绑定
+		$('#preview').click(function(){
+			var modal=$('#preview_modal');
+			modal.modal();
+			modal.find('iframe').attr('src','http://saunion.scnu.edu.cn/shelian_weixin/weixin/wxshow.html?seid='+ShetuanUser.seid);
+		});
 		//点击左侧导航栏的响应事件
 		$('#view-info').click(function(){//查看社团资料
 			ShetuanUser.SetBodyTitle('社团资料','','','','');
@@ -72,8 +79,28 @@ ShetuanUser={
 			ShetuanUser.GetMaterials(ShetuanUser.$mytable,-1,-1);//写入社团物资信息到id为table的元素中
 		});//社团物资
 		$('#view-mail').click(function(){//查看社团信箱
-			ShetuanUser.SetBodyTitle('社团信箱','','','<a href="refresh.php?exportfile=yes">导出报名表</a>','');
+			ShetuanUser.SetBodyTitle('社团信箱<span id="open-mail" class="open-mail">'+(ShetuanUser.open==0?('<span class="isclose">已关闭</span>'):('<span class="isopen">已开启</span>'))+'</span>',
+				'','','<a href="refresh.php?exportfile=yes">导出报名表</a>','');
 			ShetuanUser.GetRegister(ShetuanUser.$mytable,-1);
+			$('#open-mail').click(function(){
+				var k=$(this).children('span');
+				if(k.css('float')=='right'){
+					ShetuanUser.PostData('changeisopen','-1',[0],function(){
+						k.removeClass();
+						k.addClass('isclose');
+						k.text('已关闭');
+						ShetuanUser.open=0;
+					});
+				}
+				else{
+					ShetuanUser.PostData('changeisopen','-1',[1],function(){
+						k.removeClass();
+						k.addClass('isopen');
+						k.text('已开启');
+						ShetuanUser.open=1;
+					});
+				}
+			});
 		});//社团信箱
 		$('#view-market').click(function(){//社团市场
 			ShetuanUser.SetBodyTitle('社团物资市场','','',
@@ -107,8 +134,8 @@ ShetuanUser={
 			ShetuanUser.$modal_choice.html('');
 			ShetuanUser.GetFile(ShetuanUser.$mytable,'');
 		});//文件下载
-		$('.img-review').bind('change',function(){
-		//	console.log('图片预览');
+	/*	$('#photoimg').on('change',function(){
+			console.log('图片预览');
 			var status=Common.change(this);
 			if(status==-1)
 			   $(this).parent().next().html(Common.Warning("文件必须为图片！图片格式：png、jpg、jpeg、gif")); //提示信息
@@ -116,8 +143,9 @@ ShetuanUser={
 				$(this).parent().next().html(Common.Warning("文件大小不能大于25KB哦")); //提示信息
 			else
 				$(this).parent().next().html('');
-		});
+		});*/
 		$('#send-newpassword').click(function(){
+			ShetuanUser.SetShade(true);//遮罩
 			var pass_input=$('#password_edit_modal input');
 			var oldp=pass_input.eq(0).val(),newp=pass_input.eq(1).val(),surep=pass_input.eq(2).val();
 			if(newp.length>=6)//密码长度必须大于6
@@ -150,7 +178,6 @@ ShetuanUser={
 			ShetuanUser.PostData('changeinfo',seid,info,function(){
 				ShetuanUser.$info_edit_modal.modal('hide');//修改成功后隐藏模态框
 				ShetuanUser.GetAllInfo('',Common.GetPosition(seid),seid,'info');
-				ShetuanUser.SetShade(false);//遮罩
 			});
 		});
 		$('#send-changeaction').click(function(){
@@ -168,12 +195,11 @@ ShetuanUser={
 				ShetuanUser.PostData('changeaction',seid,action,function(){
 					ShetuanUser.$action_edit_modal.modal('hide');//修改成功后隐藏模态框
 					ShetuanUser.GetAction(Common.GetPosition(seid),seid);
-					ShetuanUser.SetShade(false);//遮罩
 				});
 			});//上传完成后，更新数据库信息
 		});
 		$('#send-changephoto').click(function(){
-		//	ShetuanUser.SetShade(true);//遮罩
+			ShetuanUser.SetShade(true);//遮罩
 			var modal=ShetuanUser.$photo_edit_modal;
 			var content=modal.find('textarea[data-edit="yes"]');
 			var photo_upload=modal.find('input[data-upload="yes"]');//选中上传的input
@@ -187,7 +213,6 @@ ShetuanUser={
 				ShetuanUser.PostData('changephoto',seid,photo,function(){
 					modal.modal('hide');//修改成功后隐藏模态框
 					ShetuanUser.GetPhoto(Common.GetPosition(seid),seid);
-				//	ShetuanUser.SetShade(false);//遮罩
 				});//上传完成后，更新数据库信息
 			});
 		});
@@ -209,7 +234,6 @@ ShetuanUser={
 				ShetuanUser.PostData('changematerials',seid,materials,function(){
 					modal.modal('hide');//修改成功后隐藏模态框
 					ShetuanUser.GetMaterials(Common.GetPosition(seid),seid,-1);
-					ShetuanUser.SetShade(false);//遮罩
 				});//上传完成后，更新数据库信息
 			});
 		});
@@ -228,12 +252,14 @@ ShetuanUser={
 		click_fun(ShetuanUser.$mytable,'');
 	},
 	GetAllInfo: function(acount_id,info_id,seid,type){//id为显示位置，seid社团编号，type数据类型（user，acount，info）
-		$.get("refresh.php",
+		$.get(CONST.Server_URL,
 				{info_nav:0,seid:seid},
 				function(data,textStatus){
 					switch(type){
 						case 'all':
 						case 'user' ://用户基本信息
+							ShetuanUser.seid=data[0].seid;//社团编号，用于预览框
+							ShetuanUser.open=data[0].isopen;//是否开启了邮箱
 							var txthtml1='<img src="'+data[0].img+'" class="img-responsive">'+
 													'<p class="text-center p-name"><b>'+data[0].name+'</b></p>';
 							$('#shetuan-user').html(txthtml1);
@@ -345,7 +371,7 @@ ShetuanUser={
 										"<tr><th class='photo-table-th0'>文件类型</th><th>文件名</th><th>文件大小</th><th>上传时间</th><th>操作</th></tr>";
 							for(var i=0;i<n;i++){
 								if(status=='0')//高权限的有删除操作，
-									oplink="<a rel='popover' class='delete'><img src='images/cross.png'>删除</a>";
+									oplink="<a rel='popover' class='delete file-popover'><img src='images/cross.png'>删除</a>";
 								else//连接，提供下载
 									oplink="<a href='../wxmanage/shetuan_file/"+data[i][0]+"' title='点击下载'><img src='images/download.png'></a>";
 								txthtml+="<tr><td class='text-center'><img src='images/file/"+ShetuanUser.GetFileType(data[i][0])+"'></td><td class='filename-td'>"+data[i][0]+"</td>"+
@@ -355,6 +381,10 @@ ShetuanUser={
 							}
 							txthtml+="</tbody></table>";
 							$(id).html(txthtml);
+							if(status=='0'){//高权限的有删除操作
+								var text="真的要删除吗？删除后无法修复，请谨慎操作！";
+								Common.DeleteTip($(id).find('.file-popover'),'deletefile',text);
+							}
 						}
 						else
 							$(id).html(Common.Warning("点击右上角的加号就可以添加文件啦！"));
@@ -399,21 +429,21 @@ ShetuanUser={
 				var txthtml="";
 				if(n==0){
 					txthtml=Common.Warning("还未添加社团物资，赶快添加吧！");
-					id.html(txthtml);
+					$(id).html(txthtml);
 				}
 				else{
-					id.html(ShetuanUser.MaterialsHTML(data,seid,page));//表格排版
-					if(market=='yes'){
+					$(id).html(ShetuanUser.MaterialsHTML(data,seid,page));//表格排版
+					if(market=='yes'){//社团市场
 						$(id).append(ShetuanUser.PagingHTML(data[0][0],page));//社团市场产生页数
 						$('#market-page a[data-page]').click(function(){
 							console.log($(this).attr('data-page'));
 							ShetuanUser.GetMaterials(ShetuanUser.mytable,'',$(this).attr('data-page'));
 						});
 					}
-					id.find('.materials_edit').click(ShetuanUser.OpenEditModal);//绑定编辑事件
+					$(id).find('.materials_edit').click(ShetuanUser.OpenEditModal);//绑定编辑事件
 					page==-1?'':$('.market_view').click(ShetuanUser.OpenEditModal);//查看事件
 					var text="真的要删除吗？删除后无法修复，请谨慎操作！";
-					Common.DeleteTip(id.find('.materials-popover'),'deletematerials',text);//给删除操作添加删除提示，以免误删
+					Common.DeleteTip($(id).find('.materials-popover'),'deletematerials',text);//给删除操作添加删除提示，以免误删
 				}
 			},"json");
 	},
@@ -433,9 +463,9 @@ ShetuanUser={
 	},
 	PostData: function(changetype,seid,edit,successfun){//向服务器发送数据，changtype为更新类别，seid为社团编号，edit为更新内容，successfun为更新成功后的执行函数
 		$.post(CONST.Server_URL,{
-				changetype: changetype,
-				seid: seid,//将社团编号传进服务端，便于高级管理员修改指定社团的资料
-				edit: edit
+			changetype: changetype,
+			seid: seid,//将社团编号传进服务端，便于高级管理员修改指定社团的资料
+			edit: edit
 			}, function (data,textStatus){
 					if(data=="changesuccess"){
 						alert("更新成功！");
@@ -445,7 +475,15 @@ ShetuanUser={
 						alert("添加成功！");
 						successfun();
 					}
+					else if(data=="changeisopen"){
+						alert('操作成功！')
+						successfun();
+					}
+					else if(data=="reductionsuccess"){
+						successfun();
+					}
 					else alert("操作失败！可能是您的网络出现问题了！错误代码："+data);
+					ShetuanUser.SetShade(false);//遮罩
 				},"json");
 	},
 	MaterialsHTML: function(data,seid,page){
@@ -633,7 +671,7 @@ ShetuanUser={
 	},
 	SetShade: function(btype){
 		if(btype){
-			var shadeHTML='<div id="shadediv" class="shadediv">系统正在加载，请稍后...</div>';
+			var shadeHTML='<div id="shadediv" class="shadediv"><div><img src="images/load.gif">系统正在加载，请稍后...</div></div>';
 			$('body').append(shadeHTML);
 		}
 		else
@@ -645,6 +683,16 @@ ShetuanUser.Init();
 Common={
 	GetPosition: function(seid){// 返回写入位置
 		return $('#mytable'+seid).length==0?$('#mytable'):$('#mytable'+seid);
+	},
+	PreviewImg: function(dom){
+		console.log('图片预览');
+		var status=Common.change(dom);
+		if(status==-1)
+		   $(dom).parent().next().html(Common.Warning("文件必须为图片！图片格式：png、jpg、jpeg、gif")); //提示信息
+		else if(status==-2)
+			$(dom).parent().next().html(Common.Warning("文件大小不能大于25KB哦")); //提示信息
+		else
+			$(dom).parent().next().html('');
 	},
 	change: function (thiselement) {//id为选择文件的按钮，choice为图片预览位置的选择，预览
 		var file=$(thiselement).get(0);
@@ -688,14 +736,6 @@ Common={
 		})
 		return false;
 	},
-/*	FileChange: function (id){//文件名预览
-		var filepath=$(id).val();//文件路径
-		if(CheckFile("office",filepath))//是文档
-			if(GetFileSize($(id))<=maxFilesize)//小于50MB
-				$('#file_edit_modal span:eq(1)').append("<br>"+filepath);
-			else $('#file_edit_modal span:eq(0)').html(Warning("只能上传小于50MB的文件！"));//错误提示
-		else $('#file_edit_modal span:eq(0)').html(Warning("只能上传doc、docx、xls、xlsx、ppt、pptx，zip、rar、war、7z等文件！"));//错误提示
-	},*/
 	GetFileSize: function (fileobj,MAXsize){//获得文件大小,fileobj为JQ对象
 		if(fileobj[0].files[0].size<=MAXsize)
 			return true;//在最大值范围内
@@ -726,10 +766,8 @@ Common={
 		position.popover({delay:{ show: 0, hide: 100 },title: title, html:'true',content: content,trigger:'click',placement:'left'});
 	},
 	ClosePopover: function(dom){
-	//	console.log($(dom).parents('div[class~="popover"]').prev());//找到a标签
 		$(dom).parents('div[class~="popover"]').prev().popover('toggle');
 	},
-	//post删除相片和活动,choice为删除选项，order为删除项的序号
 	Delete: function (deletetype,dom){
 		console.log(deletetype);
 		var delete_a=$(dom).parents('div[class~="popover"]').prev();
@@ -756,8 +794,22 @@ Common={
 				});
 			break;
 			case 'deletefile':
+				console.log(delete_a.parent().parent().children('td:eq(1)').text());
+				Common.PostDelete(deletetype,delete_a.parent().parent().children('td:eq(1)').text(),function(){
+					ShetuanUser.GetFile('#mytable','0');
+				});
 			break;
-			case 'deleteacount':
+			case 'deleteacount'://删除社团
+				Common.PostDelete(deletetype,seid,function(){
+					ShetuanManager.GetList(1);//获取已删除社团
+				});
+			break;
+			case 'deleteacount0'://放进已删除社团目录
+				Common.PostDelete(deletetype,seid,function(){
+					Common.GetPosition(seid).prev().prev().remove();
+					Common.GetPosition(seid).prev().remove();
+					Common.GetPosition(seid).remove();
+				});
 			break;
 			default: console.log('删除失败，找不到目标');
 		}
@@ -801,9 +853,11 @@ Common={
 					allowImageUpload : false,
 					pasteType : 2,
 					items : [
-						'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
-						'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
-						'insertunorderedlist', '|', 'emoticons', 'image','link']
+						'source','undo','redo','preview','wordpaste','|',
+						'subscript','superscript','fontname', 'formatblock','fontsize', '|', 
+						'forecolor', 'hilitecolor', 'bold', 'italic', 'underline','hr','strikethrough','|',
+						'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist','insertunorderedlist',/*'table','baidumap',*/'pagebreak','removeformat', '|', 
+						'emoticons', /*'image', 'link',*/'|','fullscreen']
 				});
 		}
 	}

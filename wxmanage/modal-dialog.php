@@ -1,10 +1,4 @@
-<?php 
-	$booturl="http://saunion.scnu.edu.cn/shelian_weixin/test/";
-	$modal_id=array("info_preview_modal","action_preview_modal","photo_preview_modal");
-	$preview_url=array("{$booturl}wxshow.php?seid={$seid}",
-									"{$booturl}wxpicshow.php?seid={$seid}",
-									"{$booturl}photo.php?seid={$seid}");
-?>
+
 <div id="edit-modal">
 	<!-- 弹出社团资料编辑框-->
 	<div class="modal fade" id="info_edit_modal" data-seid="-1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -38,22 +32,17 @@
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
-	<!-- 弹出各种预览框 -->
-	<?php
-	/*for($i=0;$i<3;$i++)
-	print <<<EOT
-	<div class="modal fade" id="{$modal_id[$i]}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<!-- 弹出预览框 -->
+	<div class="modal fade" id="preview_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div  class="myiframe">
 				<img class="myclose" data-dismiss="modal" src="images/close.png">
 				<p>
-				<iframe src="{$preview_url[$i]}"></iframe>
+				<iframe src=""></iframe>
 				</p>
 			</div>
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
-	EOT;*/
-	?>
 	<!--弹出社团活动编辑框-->
 	<div class="modal fade" id="action_edit_modal" data-seid="-1" data-id="-1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog  text-left ">
@@ -81,7 +70,7 @@
 								<div class="thumbnail thumbnail-bottom">
 									<center><img class="img-box1" src="" data-edit="yes" alt="点击加号可添加图片"/></center>
 									<div class="imgfile">
-										<input type="file" class="img-review" id="actionimg1" name="actionimg1" data-upload="yes" value="上传文件" />
+										<input type="file" class="img-review" id="actionimg1" name="actionimg1" data-upload="yes" value="上传文件" onchange="Common.PreviewImg(this)"/>
 									</div>
 									<span></span>
 									<div class="caption caption-round">
@@ -93,7 +82,7 @@
 								<div class="thumbnail thumbnail-bottom">
 									<center><img class="img-box1" src="" data-edit="yes" alt="点击加号可添加图片"/></center>
 									<div class="imgfile">
-										<input type="file" class="img-review" id="actionimg2" name="actionimg2" data-upload="yes" value="上传文件"/>
+										<input type="file" class="img-review" id="actionimg2" name="actionimg2" data-upload="yes" value="上传文件" onchange="Common.PreviewImg(this)"/>
 									 </div>
 									<span></span>
 									<div class="caption caption-round">
@@ -123,7 +112,7 @@
 					<div class="row">
 						<center><img class="img-box1" src="" data-edit="yes" class="img-thumbnail photo-box" alt="无法获取图片"/></center>
 						<div class="imgfile">
-							<input type="file" class="img-review" id="photoimg" name="photoimg" data-upload="yes"/>
+							<input type="file" class="img-review" id="photoimg" name="photoimg" data-upload="yes" onchange="Common.PreviewImg(this)"/>
 						 </div>
 						 <span></span><!--显示提示信息-->
 					</div>
@@ -255,7 +244,7 @@
 						<div class="row">
 							<center><img src="#" class="img-thumbnail photo-box" alt="无法获取图片"/></center>
 							<div class="imgfile">
-								<input type="file" id="materialsimg" class="img-review"name="materialsimg"  data-upload="yes"/>
+								<input type="file" id="materialsimg" class="img-review"name="materialsimg"  data-upload="yes" onchange="Common.PreviewImg(this)"/>
 							 </div>
 							 <span id="materials-span"></span>
 							 <span></span><!--错误信息提示-->
@@ -368,7 +357,7 @@ print <<<EOT
 					<div class="row">
 						<center><img src="#" class="img-thumbnail photo-box" data-edit="yes" alt="点击加号添加图片"></center>
 						<div class="imgfile">
-							<input type="file" id="imglogo" name="imglogo" data-upload="yes"/>
+							<input type="file" id="imglogo" name="imglogo" data-upload="yes" onchange="Common.PreviewImg(this)"/>
 						 </div>
 					</div>
 					<div class="form-group">
@@ -390,7 +379,6 @@ print <<<EOT
 							<option value="5">院系社联类</option>
 						</select>
 					</div>
-					<span id="adduser"></span><!--添加社团时输入登录信息-->
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -480,7 +468,7 @@ print <<<EOT
 				</div>
 				<form role="form">
 					<div class="modal-body">
-						<span></span><!--显示提示信息-->
+						<span id="mail-tip"></span><!--显示提示信息-->
 						<div class="form-group">
 							<label>输入邮箱账号</label>
 							<input type="text" class="form-control"name="childpart"id="childpart" placeholder="输入邮箱账号">
@@ -505,10 +493,14 @@ print <<<EOT
 				</div>
 				<div class="modal-body">
 					<span id="file-span"></span></br><!--显示提示信息-->
-					<span>文件列表：</span>
+					文件列表：
+					<table id="file-list">
+						<tbody>
+						</tbody>
+					</table>
 					<div id="addfilearea">
-						<div class='imgfile'  onclick="AddFileHtml()">
-							<input type='file' id="file1" name="file1" value='上传文件' onchange="FileChange(this)">
+						<div class='imgfile'>
+							<input type='file' id="file1" name="file1" value='上传文件'" onchange="ShetuanManager.FileChange(this)">
 						</div>
 					</div>
 					<div class="modal-footer">

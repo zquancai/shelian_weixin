@@ -1,0 +1,43 @@
+body{
+	max-width: 500px;
+	margin: 0 auto;
+	background:white;
+}
+.img{width:100%;}
+.s-info img{max-width:100%;}
+.s-info{
+	background: rgb(255,255,255);
+	box-shadow: 0 0 5px 3px rgba(100,100,100,0.3);
+	border-radius: 4px;
+	padding: 10px;
+	margin: 5px 5px 10px 5px;
+}
+.s-bottom{
+	margin-bottom:55px;
+}
+.shetuan{
+	width:100%;
+	padding-left:0;
+	margin-bottom: 5px;
+}
+.shetuan img{
+	height: 30px;
+	vertical-align: middle;
+	text-align: center;
+	padding-right: 15px;
+	max-width: 20%;
+}
+.shetuan a{
+	position: relative;
+	color: rgb(112, 108, 108);
+	text-decoration: none;
+	display: block;
+}
+.shetuan span{
+	position: absolute;
+	left: 20%;
+	line-height: 30px;
+}
+.shetuan a:hover{
+	background:#eee;
+}

@@ -6,7 +6,7 @@ include('conn.php');//数据库连接
 
 include('db.php');//数据库操作
 
-include('./test/slservice.php');//微信的主程序
+include('./weixin/slservice.php');//微信的主程序
 
 $weixin =new weixin();
 
@@ -60,7 +60,7 @@ class weixin
 		}
 		switch($this->content){
 			case "1":	//社联简介
-				$service->whoIs("校社联");
+				$service->whoIs("社联");
 			break;
 			case "2"://社团简介
 				$service->shetuan();
@@ -71,24 +71,20 @@ class weixin
 			case "4"://近期社团活动回顾
 				$service->clubEvent();
 			break;
-			case "5"://订阅
-			break;
-			case "6"://会员意见
+			case "5"://会员意见
 				$service->showOpinion();
+			break;
+			case "6"://社团微社区
+				$service->showWxforum();
 			break;
 			case "7"://消息推送
 			break;
-			case "8"://留言
-			break;
 			default:
 		}
-		
 	if($service->checkNames($this->content)){//社团介绍
 			$service->whoIs($this->content);
-			//$service->echoStr();
 			}
 		$service->echoStr();
-
     }
 	 
 	 /*
